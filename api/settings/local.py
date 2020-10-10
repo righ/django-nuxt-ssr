@@ -13,3 +13,9 @@ DATABASES = {
         # 'ATOMIC_REQUESTS': True,
     }
 }
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '846141039915-ejcvqb78ud6cr30l3g2e45hfagkf2a9c.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'UIYSjS8OQPYj4IMUpHCdKCbg'
+
+LOGIN_REDIRECT_URL = 'http://localhost:3000/home/'
+LOGOUT_REDIRECT_URL = 'http://localhost:3000/'
