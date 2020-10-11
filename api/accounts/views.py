@@ -28,6 +28,16 @@ class CheckView(APIView):
         return Response(content)
 
 
+class MyProfileView(APIView):
+    authentication_classes = (
+        authentication.SessionAuthentication, 
+        authentication.TokenAuthentication,
+    )
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+
 class SessionView(APIView):
     authentication_classes = (
         authentication.SessionAuthentication, 
@@ -40,10 +50,9 @@ class SessionView(APIView):
 
 class TokenView(APIView):
     authentication_classes = (
-        #authentication.SessionAuthentication, 
-        #authentication.BasicAuthentication, 
+        authentication.SessionAuthentication, 
+        authentication.BasicAuthentication, 
         authentication.TokenAuthentication,
-        #ExpirationTokenAuthentication,
     )
     def get(self, request):
         user_id = request.user.id
@@ -110,8 +119,6 @@ class UserList(generics.ListAPIView):
     #pagination_class = MyNumberPagination
     #pagination_class = MyLOPagination
     #pagination_class = MyCursorPagination
-
-
 
 
 class UserViewSet(viewsets.ModelViewSet):

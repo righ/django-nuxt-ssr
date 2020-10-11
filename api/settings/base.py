@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'djoser',
     'django_filters',
     'social_django',
+    'corsheaders',
 
     # apps
     'accounts',
@@ -60,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
@@ -146,6 +149,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
     ),
 }
 
@@ -164,3 +168,8 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 
+SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = []
+
+DJOSER = {
+    "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [""],
+}

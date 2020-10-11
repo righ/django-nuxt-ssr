@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'name', 'file', 'belongs')
+        fields = ('id', 'name', 'email', 'file', 'belongs')
         extra_kwargs = {
             'gravatar': {'read_only': True},
             'password': {'write_only': True},

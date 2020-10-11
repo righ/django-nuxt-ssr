@@ -19,3 +19,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'UIYSjS8OQPYj4IMUpHCdKCbg'
 
 LOGIN_REDIRECT_URL = 'http://localhost:3000/home/'
 LOGOUT_REDIRECT_URL = 'http://localhost:3000/'
+
+DJOSER["SOCIAL_AUTH_ALLOWED_REDIRECT_URIS"] = ["http://localhost:3000/home/"]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8001',
+    'http://localhost:3000',
+]
+
+CORS_ALLOW_CREDENTIALS = True
