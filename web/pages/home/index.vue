@@ -14,8 +14,11 @@
 </template>
 <script>
 import querystring from 'querystring';
+import Vue, { PropOptions } from 'vue'
 
-export default {
+export default Vue.extend({
+  name: "home vue",
+  auth: true,
   async asyncData({ app }) {
     const data = await app.$axios.$get(`/api/accounts/myprofile`);
     return data;
@@ -25,6 +28,6 @@ export default {
       this.$auth.logout();
     },
   },
-};
+});
 </script>
 

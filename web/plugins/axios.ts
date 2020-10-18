@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { StateType } from '../store/index';
+import Cookies from 'js-cookie'
 
 type AxiosType = typeof axios;
 
@@ -8,7 +9,18 @@ interface Axios extends AxiosType {
 }
 
 export default function({ $axios, store: { state } }: { $axios: Axios, store: { state: StateType }} ) {
+  if (typeof window === "undefined") {
+    console.log("ssr");
+    return;
+  }
   $axios.onRequest((config) => {
-    config.headers.common['Authorization'] = `Token ${state.token}`;
+    if (state.token) {
+      config.headers.common['Authorization'] = `Token ${state.token}`;
+    }
+
+    const csrfToken = Cookies.get("csrftoken");
+    if (csrfToken) {
+      config.headers.common['x-csrf-token'] = csrfToken;
+    }
   });
 }

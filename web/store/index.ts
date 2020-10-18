@@ -4,6 +4,7 @@ import {
   ActionTree,
   MutationTree,
 } from 'vuex';
+import { NuxtAxiosInstance } from "@nuxtjs/axios";
 
 export type UserType = {
   name?: string;
@@ -32,17 +33,17 @@ export const mutations: MutationTree<RootState> = {
   setToken(state, token: string) {
     state.token = token;
   },
-  CHANGE_NAME: (state, newName: string) => {
-
-  },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
   setUser() {
 
   },
-  nuxtServerInit({ commit }, { req }) {
-
+  async nuxtServerInit({ commit }, { app }: {app: { $axios: NuxtAxiosInstance}}) {
+    const res = await app.$axios.$get<{token: string}>("/api/accounts/token/");
+    if (res.token) {
+      commit('setToken', res.token);
+    }
   },
 };
 

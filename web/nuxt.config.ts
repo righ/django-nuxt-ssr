@@ -1,3 +1,6 @@
+import axios, { AxiosRequestConfig } from 'axios';
+import { StateType } from './store/index';
+
 const apiBase = process.env.BASE_URL || "http://localhost:8032";
 
 export default {
@@ -38,6 +41,7 @@ export default {
     'nuxt-buefy',
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    //'@nuxtjs/auth',
   ],
   proxy: {
     '/api': {
@@ -59,5 +63,5 @@ export default {
   server: {
     port: 8033, // デフォルト: 3000
     host: '0.0.0.0' // デフォルト: localhost
-  }
+  },
 }

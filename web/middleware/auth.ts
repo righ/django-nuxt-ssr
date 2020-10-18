@@ -13,25 +13,7 @@ type Props = {
 
 export default async function ({ app, store, route, redirect }: Props) {
   const { state } = store;
-  console.log("debug:", state.token, store.getters.token);
 
   let { token } = state;
-  if (route.path.match(/\/api\//)) {
-    return;
-  }
-
-  if (typeof token === "undefined") {
-    try {
-      const res = await app.$axios.$get<{token: string}>("/api/accounts/token/");
-      token = res.token;
-    } catch {
-      redirect('/');
-    }
-  }
-
-  if(typeof token === "undefined") {
-    redirect('/');
-  } else {
-    store.commit("setToken", token);
-  }
+  console.log("token:", token);
 };
