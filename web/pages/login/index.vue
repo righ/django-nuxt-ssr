@@ -4,7 +4,7 @@
       <card
         icon="google"
       >
-        Login with <a href="http://localhost:8001/oauth/login/google-oauth2/">
+        Login with <a href="http://localhost:8032/oauth/login/google-oauth2/">
           Google
         </a>
       </card>

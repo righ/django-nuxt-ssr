@@ -17,10 +17,9 @@ import querystring from 'querystring';
 
 export default {
   async asyncData({ app }) {
-    const data = await app.$axios.$get(`http://localhost:8001/api/accounts/myprofile`);
+    const data = await app.$axios.$get(`/api/accounts/myprofile`);
     return data;
   },
-  middleware: ['auth'],
   methods: {
     logout() {
       this.$auth.logout();

@@ -1,4 +1,4 @@
-const apiBase = process.env.BASE_URL || "http://localhost:8001";
+const apiBase = process.env.BASE_URL || "http://localhost:8032";
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -48,12 +48,16 @@ export default {
       }
   },
   router: {
-    //middleware: 'auth',
+    middleware: 'auth',
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:8033'
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+  server: {
+    port: 8033, // デフォルト: 3000
+    host: '0.0.0.0' // デフォルト: localhost
   }
 }

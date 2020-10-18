@@ -15,16 +15,16 @@ DATABASES = {
 }
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '846141039915-ejcvqb78ud6cr30l3g2e45hfagkf2a9c.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'UIYSjS8OQPYj4IMUpHCdKCbg'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'pPcrjcqAoFyy_WVBd3YllvgA'
 
-LOGIN_REDIRECT_URL = 'http://localhost:3000/home/'
-LOGOUT_REDIRECT_URL = 'http://localhost:3000/'
+LOGIN_REDIRECT_URL = 'http://localhost:8033/home/'
+LOGOUT_REDIRECT_URL = 'http://localhost:8033/'
 
-DJOSER["SOCIAL_AUTH_ALLOWED_REDIRECT_URIS"] = ["http://localhost:3000/home/"]
+# DJOSER["SOCIAL_AUTH_ALLOWED_REDIRECT_URIS"] = ["http://localhost:8033/home/"]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8001',
-    'http://localhost:3000',
+    'http://localhost:8032',
+    'http://localhost:8033',
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
