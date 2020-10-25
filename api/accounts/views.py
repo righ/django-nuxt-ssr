@@ -14,7 +14,7 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import User, Group
-from .serializers import UserSerializer, GroupSerializer
+from .serializers import UserSerializer, GroupSerializer, ProfileSerializer
 from .permissions import GroupMemberPermission
 from .authentication import ExpirationTokenAuthentication
 
@@ -28,13 +28,13 @@ class CheckView(APIView):
         return Response(content)
 
 
-class MyProfileView(APIView):
+class ProfileView(APIView):
     authentication_classes = (
         authentication.SessionAuthentication, 
         authentication.TokenAuthentication,
     )
     def get(self, request):
-        serializer = UserSerializer(request.user)
+        serializer = ProfileSerializer(request.user)
         return Response(serializer.data)
 
 

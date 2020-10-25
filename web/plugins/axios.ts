@@ -10,17 +10,17 @@ interface Axios extends AxiosType {
 
 export default function({ $axios, store: { state } }: { $axios: Axios, store: { state: StateType }} ) {
   if (typeof window === "undefined") {
-    console.log("ssr");
     return;
   }
   $axios.onRequest((config) => {
-    if (state.token) {
-      config.headers.common['Authorization'] = `Token ${state.token}`;
+    if (state.user) {
+      config.headers.common['Authorization'] = `Token ${state.user.token}`;
     }
 
     const csrfToken = Cookies.get("csrftoken");
     if (csrfToken) {
-      config.headers.common['x-csrf-token'] = csrfToken;
+      config.headers.common['csrftoken'] = csrfToken;
+      config.headers.common['X-CSRFToken'] = csrfToken;
     }
   });
 }

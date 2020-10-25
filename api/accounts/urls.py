@@ -15,6 +15,6 @@ urlpatterns = [
     path('names/', views.UserNameAPI.as_view()),
     path('list/', views.UserList.as_view()),
     path('check/', views.CheckView.as_view()),
-    path('myprofile', views.MyProfileView.as_view()),
+    path('profile', views.ProfileView.as_view()),
     path('', include(router.urls)),
 ]

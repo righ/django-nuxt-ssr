@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers, validators
+from rest_framework.authtoken.models import Token
 
 from .models import User, Group
 
@@ -14,6 +15,19 @@ class RecursiveField(serializers.Field):
 
     def to_internal_value(self, data):
         return data
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'name', 'email', 'token')
+
+    def get_token(self, instance):
+        if instance:
+            token, _ = Token.objects.get_or_create(user_id=instance.id)
+            return str(token)
 
 
 class UserSerializer(serializers.ModelSerializer):

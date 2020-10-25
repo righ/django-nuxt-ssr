@@ -7,19 +7,22 @@ import {
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 
 export type UserType = {
-  name?: string;
-  token?: string;
+  id: string;
+  name: string;
+  token: string;
 };
 
 export type StateType = {
   token?: string;
   user?: UserType;
+  csrfToken?: string;
 }
 
 export const state = (): StateType => ({
   // token: "a04d1a4ba52dc854d7f727e6831a3238d36c114d",
   token: undefined,
   user: undefined,
+  csrfToken: undefined,
 });
 
 export type RootState = ReturnType<typeof state>;
@@ -30,19 +33,26 @@ export const getters: GetterTree<RootState, RootState> = {
 };
 
 export const mutations: MutationTree<RootState> = {
-  setToken(state, token: string) {
+  SET_TOKEN(state, token: string) {
     state.token = token;
   },
+  SET_USER(state, user: UserType) {
+    state.user = user;
+  }
 };
 
 export const actions: ActionTree<RootState, RootState> = {
   setUser() {
 
   },
-  async nuxtServerInit({ commit }, { app }: {app: { $axios: NuxtAxiosInstance}}) {
-    const res = await app.$axios.$get<{token: string}>("/api/accounts/token/");
-    if (res.token) {
-      commit('setToken', res.token);
+  async nuxtClientInit({ commit }, { app }: {app: { $axios: NuxtAxiosInstance}}) {
+    const resToken = await app.$axios.$get<{token: string}>("/api/accounts/token/");
+    if (resToken.token) {
+      commit('SET_TOKEN', resToken.token);
+    }
+    const resUser = await app.$axios.$get<UserType>("/api/accounts/profile");
+    if (resUser) {
+      commit('SET_USER', resUser);
     }
   },
 };

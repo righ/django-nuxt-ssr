@@ -1,32 +1,34 @@
 <template>
   <div>
-    <h1>Login Succeeded!</h1>
-    <hr />
     <table>
       <tbody>
-        <tr><th>ID:</th><td>{{ id }}</td></tr>
-        <tr><th>Email:</th><td>{{ email }}</td></tr>
-        <tr><th>Name:</th><td>{{ name }}</td></tr>
+        <tr><th>ID:</th><td>{{ user && user.id }}</td></tr>
+        <tr><th>Email:</th><td>{{ user && user.email }}</td></tr>
+        <tr><th>Name:</th><td>{{ user && user.name }}</td></tr>
       </tbody>
     </table>
-    <button>Logout</button>
+    <button v-on:click="logout()">Logout</button>
   </div>
 </template>
+
 <script>
 import querystring from 'querystring';
-import Vue, { PropOptions } from 'vue'
+import Vue, { PropOptions } from 'vue';
 
 export default Vue.extend({
-  name: "home vue",
+  name: "home",
   auth: true,
-  async asyncData({ app }) {
-    const data = await app.$axios.$get(`/api/accounts/myprofile`);
-    return data;
-  },
   methods: {
-    logout() {
-      this.$auth.logout();
+    async logout() {
+      await this.$axios.$post("/api/auth/token/logout");
+      this.$store.state.user = null;
+      this.$router.push("/");
     },
+  },
+  data() {
+    return {
+      user: this.$store.state.user,
+    }
   },
 });
 </script>
