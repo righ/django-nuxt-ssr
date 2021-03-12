@@ -10,6 +10,14 @@
       </card>
 
       <card
+        icon="line"
+      >
+        Login with <a href="http://localhost:8032/oauth/login/line/">
+          LINE
+        </a>
+      </card>
+
+      <card
         title="Login"
       >
         <form>
