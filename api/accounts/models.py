@@ -17,10 +17,8 @@ class UserManager(BaseUserManager):
         """
         Create and save a user with the given email, and password.
         """
-        if not email:
-            raise ValueError('The given email must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email or None, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -45,7 +43,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=20, blank=True, default='')
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=True)
     file = models.FileField(null=True, upload_to='userfiles/')
 
     is_staff = models.BooleanField(default=False)
@@ -62,8 +60,10 @@ class Group(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=40)
     users = models.ManyToManyField(User, related_name='belongs')
-    owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='mygroups')
-    parent = models.ForeignKey('self', null=True, on_delete=models.SET_NULL, related_name='children')
+    owner = models.ForeignKey(
+        User, null=True, on_delete=models.SET_NULL, related_name='mygroups')
+    parent = models.ForeignKey(
+        'self', null=True, on_delete=models.SET_NULL, related_name='children')
 
     def __str__(self):
         return f'{self.name} (ID:{self.id})'
